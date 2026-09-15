@@ -21,10 +21,9 @@ async def root():
 
 @app.post("/upload")
 async def upload_image(file: UploadFile = File(...)):
-    bucket, key = upload_to_s3(file)
 
+    bucket, key = upload_to_s3(file)
     embedding = embed_image_from_s3(bucket, key)
-    print(embedding)
     index_image(bucket, key, embedding)
 
     return {"message": "Uploaded successfully!"}
